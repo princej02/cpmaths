@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competitive Maths — Codeforces & LeetCode</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=JetBrains+Mono:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface2: #1c2128;
+  --border: #2d333b;
+  --text: #cdd9e5;
+  --muted: #636e7b;
+  --white: #f0f6fc;
+  --teal: #39c5cf;
+  --amber: #e3a946;
+  --coral: #e05c5c;
+  --violet: #a78bfa;
+  --green: #3fb950;
+  --blue: #4493f8;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size:14px;
+  line-height:1.7;
+  min-height:100vh;
+}
+
+/* Subtle grid background */
+body::before {
+  content:'';
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(57,197,207,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57,197,207,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── HEADER ── */
+header {
+  position:relative;z-index:2;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg, rgba(57,197,207,0.05) 0%, transparent 100%);
+  padding:40px 48px 32px;
+  display:flex;align-items:flex-end;gap:40px;flex-wrap:wrap;
+}
+.brand {
+  font-family:'Playfair Display',serif;
+  font-size:3.2rem;
+  font-weight:900;
+  color:var(--white);
+  line-height:1;
+  letter-spacing:-0.02em;
+}
+.brand em {
+  color:var(--teal);
+  font-style:italic;
+}
+.brand-sub {
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;
+  color:var(--muted);
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  margin-top:8px;
+}
+.level-pills {
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  padding-bottom:4px;
+}
+.pill {
+  padding:4px 14px;border-radius:20px;font-size:11px;
+  font-weight:500;letter-spacing:0.06em;
+}
+.pill-easy { background:rgba(63,185,80,0.15);color:var(--green);border:1px solid rgba(63,185,80,0.3); }
+.pill-med  { background:rgba(227,169,70,0.15);color:var(--amber);border:1px solid rgba(227,169,70,0.3); }
+.pill-hard { background:rgba(224,92,92,0.15);color:var(--coral);border:1px solid rgba(224,92,92,0.3); }
+.pill-ext  { background:rgba(167,139,250,0.15);color:var(--violet);border:1px solid rgba(167,139,250,0.3); }
+
+/* ── NAV ── */
+nav {
+  position:sticky;top:0;z-index:10;
+  background:rgba(13,17,23,0.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;overflow-x:auto;padding:0 48px;
+}
+nav a {
+  padding:14px 16px;
+  font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;transition:all 0.2s;
+  font-weight:500;
+}
+nav a:hover{color:var(--text);}
+nav a.active{color:var(--teal);border-color:var(--teal);}
+
+/* ── LAYOUT ── */
+.wrap {
+  position:relative;z-index:1;
+  max-width:980px;margin:0 auto;
+  padding:52px 24px 100px;
+}
+.section{display:none;animation:rise 0.35s ease;}
+.section.active{display:block;}
+@keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── TYPOGRAPHY ── */
+h1 {
+  font-family:'Playfair Display',serif;
+  font-size:2.8rem;font-weight:900;
+  color:var(--white);line-height:1.1;
+  letter-spacing:-0.02em;margin-bottom:6px;
+}
+h1 em{color:var(--teal);font-style:italic;}
+.sub {
+  font-size:13px;color:var(--muted);
+  margin-bottom:40px;font-style:italic;
+  font-family:'Playfair Display',serif;
+}
+
+h2 {
+  font-family:'Playfair Display',serif;
+  font-size:1.6rem;font-weight:700;
+  color:var(--white);margin:52px 0 18px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+.h2-tag{
+  font-family:'DM Sans',sans-serif;
+  font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  padding:3px 10px;border-radius:3px;font-weight:500;
+}
+
+h3 {
+  font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:10px;font-weight:600;
+}
+
+p{margin-bottom:14px;color:var(--text);line-height:1.8;}
+strong{color:var(--white);}
+
+/* ── MATH DISPLAY ── */
+.math-block {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:3px solid var(--teal);
+  border-radius:0 6px 6px 0;
+  padding:20px 24px;
+  margin:16px 0;
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;
+  color:var(--white);
+  letter-spacing:0.02em;
+}
+.math-block .label {
+  font-family:'DM Sans',sans-serif;
+  font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:8px;
+}
+.math-sub {
+  font-size:12px;color:var(--muted);margin-top:6px;
+  font-family:'DM Sans',sans-serif;font-style:italic;
+}
+
+/* ── CARDS ── */
+.card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:22px 26px;
+  margin-bottom:16px;
+}
+.card-teal{border-left:3px solid var(--teal);}
+.card-amber{border-left:3px solid var(--amber);}
+.card-coral{border-left:3px solid var(--coral);}
+.card-violet{border-left:3px solid var(--violet);}
+.card-green{border-left:3px solid var(--green);}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+@media(max-width:680px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+/* ── CODE ── */
+.code-wrap{margin:16px 0;}
+pre {
+  background:#0a0d12;
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:20px 24px;
+  overflow-x:auto;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;line-height:1.9;
+  color:#c9d1d9;
+}
+.kw{color:#ff7b72;}
+.fn{color:#d2a8ff;}
+.nm{color:#79c0ff;}
+.cm{color:#484f58;font-style:italic;}
+.st{color:#a5d6ff;}
+.op{color:#e3a946;}
+
+/* ── DIAGRAM ── */
+.diagram {
+  background:#0a0d12;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:24px;margin:18px 0;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;overflow-x:auto;
+}
+.d-title {
+  font-family:'DM Sans',sans-serif;
+  font-size:10px;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--teal);
+  margin-bottom:14px;font-weight:600;
+}
+
+/* ── NODES ── */
+.row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:6px 0;}
+.nd{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:4px;padding:6px 12px;
+  color:var(--white);font-size:12px;
+  text-align:center;min-width:36px;
+  font-family:'JetBrains Mono',monospace;
+}
+.nd-t{border-color:var(--teal);color:var(--teal);background:rgba(57,197,207,0.08);}
+.nd-a{border-color:var(--amber);color:var(--amber);background:rgba(227,169,70,0.08);}
+.nd-c{border-color:var(--coral);color:var(--coral);background:rgba(224,92,92,0.08);}
+.nd-v{border-color:var(--violet);color:var(--violet);background:rgba(167,139,250,0.08);}
+.nd-g{border-color:var(--green);color:var(--green);background:rgba(63,185,80,0.08);}
+.arr{color:var(--muted);font-size:14px;}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;margin:16px 0;}
+.tbl th{
+  background:var(--surface2);color:var(--teal);
+  padding:10px 14px;text-align:left;
+  font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  border-bottom:1px solid var(--border);font-weight:600;
+}
+.tbl td{
+  padding:10px 14px;border-bottom:1px solid rgba(45,51,59,0.6);
+  font-size:12px;color:var(--text);vertical-align:top;
+}
+.tbl tr:hover td{background:rgba(255,255,255,0.02);}
+
+/* ── CALLOUT ── */
+.callout{
+  padding:14px 18px;border-radius:6px;margin:18px 0;
+  font-size:13px;border-left:3px solid;
+}
+.co-t{border-color:var(--teal);background:rgba(57,197,207,0.05);}
+.co-a{border-color:var(--amber);background:rgba(227,169,70,0.05);}
+.co-c{border-color:var(--coral);background:rgba(224,92,92,0.05);}
+.co-v{border-color:var(--violet);background:rgba(167,139,250,0.05);}
+.co-g{border-color:var(--green);background:rgba(63,185,80,0.05);}
+
+/* ── DIFFICULTY BADGE ── */
+.diff{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10px;letter-spacing:0.08em;text-transform:uppercase;
+  padding:3px 10px;border-radius:20px;font-weight:600;margin-bottom:12px;
+}
+
+/* ── LEVEL MARKERS ── */
+.level-banner {
+  display:flex;align-items:center;gap:14px;
+  padding:16px 20px;border-radius:6px;
+  margin:32px 0 24px;font-weight:500;font-size:13px;
+}
+.lb-easy{background:rgba(63,185,80,0.08);border:1px solid rgba(63,185,80,0.25);color:var(--green);}
+.lb-med{background:rgba(227,169,70,0.08);border:1px solid rgba(227,169,70,0.25);color:var(--amber);}
+.lb-hard{background:rgba(224,92,92,0.08);border:1px solid rgba(224,92,92,0.25);color:var(--coral);}
+.lb-ext{background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.25);color:var(--violet);}
+
+/* ── STEP ── */
+.steps{counter-reset:st;}
+.step{
+  display:flex;gap:16px;margin-bottom:18px;
+  counter-increment:st;align-items:flex-start;
+}
+.step::before{
+  content:counter(st);
+  min-width:28px;height:28px;
+  background:var(--teal);color:#000;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:4px;font-weight:700;font-size:12px;flex-shrink:0;
+  font-family:'JetBrains Mono',monospace;
+}
+.step-body{padding-top:4px;font-size:13px;}
+
+/* ── PROGRESS TRACK ── */
+.track{margin:24px 0;}
+.track-item{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 0;border-bottom:1px solid rgba(45,51,59,0.5);
+  font-size:13px;
+}
+.track-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--muted);width:28px;flex-shrink:0;
+}
+.track-name{flex:1;color:var(--white);font-weight:500;}
+.track-cf{font-size:11px;color:var(--muted);}
+
+code{
+  background:rgba(57,197,207,0.1);color:var(--teal);
+  padding:1px 6px;border-radius:3px;font-size:11px;
+  font-family:'JetBrains Mono',monospace;
+}
+
+hr.div{border:none;border-top:1px solid var(--border);margin:36px 0;}
+
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;}
+.tag{
+  display:inline-block;padding:3px 10px;border-radius:3px;
+  font-size:10px;letter-spacing:0.06em;font-weight:500;
+}
+.tg{background:rgba(57,197,207,0.1);color:var(--teal);border:1px solid rgba(57,197,207,0.25);}
+.ta{background:rgba(227,169,70,0.1);color:var(--amber);border:1px solid rgba(227,169,70,0.25);}
+.tc{background:rgba(224,92,92,0.1);color:var(--coral);border:1px solid rgba(224,92,92,0.25);}
+.tv{background:rgba(167,139,250,0.1);color:var(--violet);border:1px solid rgba(167,139,250,0.25);}
+.tgg{background:rgba(63,185,80,0.1);color:var(--green);border:1px solid rgba(63,185,80,0.25);}
+
+/* Number line visual */
+.nline{
+  position:relative;height:32px;background:var(--surface2);
+  border-radius:4px;overflow:hidden;display:flex;align-items:center;
+  border:1px solid var(--border);margin:8px 0;
+}
+.nline-fill{height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace;}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">Competitive <em>Maths</em></div>
+    <div class="brand-sub">Codeforces · LeetCode · A-Level ➜ Expert · UK Edition</div>
+  </div>
+  <div class="level-pills">
+    <div class="pill pill-easy">● Easy — CF 800–1200</div>
+    <div class="pill pill-med">● Medium — CF 1200–1600</div>
+    <div class="pill pill-hard">● Hard — CF 1600–2000</div>
+    <div class="pill pill-ext">● Expert — CF 2000+</div>
+  </div>
+</header>
+
+<nav>
+  <a class="active" onclick="show('roadmap')">Roadmap</a>
+  <a onclick="show('number')">Number Theory</a>
+  <a onclick="show('combinatorics')">Combinatorics</a>
+  <a onclick="show('modular')">Modular Arithmetic</a>
+  <a onclick="show('bits')">Bit Tricks</a>
+  <a onclick="show('geometry')">Geometry</a>
+  <a onclick="show('probability')">Probability</a>
+  <a onclick="show('advanced')">Advanced</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════════════════ ROADMAP ══════════════════ -->
+<div class="section active" id="roadmap">
+  <h1>Maths for <em>Competitive</em> Programming</h1>
+  <p class="sub">Tailored for UK programmers with A-Level Maths — refreshing familiar ground, then levelling up.</p>
+
+  <p>You already have the A-Level foundation — algebra, sequences, logarithms, basic proof. What you're <strong>missing</strong> is the competitive spin: modular arithmetic, number theory tricks, combinatorics under a time constraint, and the maths hidden inside DS&A problems.</p>
+
+  <div class="callout co-t">
+    <strong>🇬🇧 A-Level to CF Rating Map:</strong> Your A-Level covers roughly what you need to reach CF ~1400. The jump to 1600+ is where number theory and combinatorics pay dividends. 2000+ demands advanced maths you won't have seen before.
+  </div>
+
+  <h2>The Full Curriculum <span class="h2-tag" style="background:rgba(57,197,207,0.1);color:var(--teal);">Easy → Expert</span></h2>
+
+  <div class="level-banner lb-easy">● EASY (CF 800–1200 / LeetCode Easy-Medium)</div>
+  <div class="track">
+    <div class="track-item"><div class="track-num">01</div><div class="track-name">Integer Division & Modulo</div><div class="track-cf">You know this. Refresh for edge cases.</div></div>
+    <div class="track-item"><div class="track-num">02</div><div class="track-name">Factors, Multiples & GCD/LCM</div><div class="track-cf">Euclidean algorithm. Core.</div></div>
+    <div class="track-item"><div class="track-num">03</div><div class="track-name">Prime Numbers & Sieve of Eratosthenes</div><div class="track-cf">Essential.</div></div>
+    <div class="track-item"><div class="track-num">04</div><div class="track-name">Powers & Logarithms</div><div class="track-cf">A-Level refresh + log₂ for binary.</div></div>
+    <div class="track-item"><div class="track-num">05</div><div class="track-name">Arithmetic / Geometric Series</div><div class="track-cf">Sum formulas. A-Level S1/S2.</div></div>
+    <div class="track-item"><div class="track-num">06</div><div class="track-name">Bit Manipulation Basics</div><div class="track-cf">AND, OR, XOR, shifts.</div></div>
+  </div>
+
+  <div class="level-banner lb-med">● MEDIUM (CF 1200–1600 / LeetCode Medium-Hard)</div>
+  <div class="track">
+    <div class="track-item"><div class="track-num">07</div><div class="track-name">Modular Arithmetic & Fast Exponentiation</div><div class="track-cf">Answer % (10⁹+7). Core.</div></div>
+    <div class="track-item"><div class="track-num">08</div><div class="track-name">Combinatorics — nCr, Permutations</div><div class="track-cf">Counting paths, selections.</div></div>
+    <div class="track-item"><div class="track-num">09</div><div class="track-name">Pigeonhole Principle</div><div class="track-cf">Proofs & constructive problems.</div></div>
+    <div class="track-item"><div class="track-num">10</div><div class="track-name">Pascal's Triangle & Binomial Theorem</div><div class="track-cf">A-Level FP1 revisited.</div></div>
+    <div class="track-item"><div class="track-num">11</div><div class="track-name">Advanced Bit Tricks</div><div class="track-cf">Popcount, bitmask DP.</div></div>
+    <div class="track-item"><div class="track-num">12</div><div class="track-name">Inclusion-Exclusion Principle</div><div class="track-cf">Counting overlapping sets.</div></div>
+  </div>
+
+  <div class="level-banner lb-hard">● HARD (CF 1600–2000)</div>
+  <div class="track">
+    <div class="track-item"><div class="track-num">13</div><div class="track-name">Modular Inverse & Fermat's Little Theorem</div><div class="track-cf">Division under mod.</div></div>
+    <div class="track-item"><div class="track-num">14</div><div class="track-name">Extended Euclidean & Bezout's Identity</div><div class="track-cf">Linear Diophantine equations.</div></div>
+    <div class="track-item"><div class="track-num">15</div><div class="track-name">Number Theoretic Transform (NTT)</div><div class="track-cf">Polynomial multiplication.</div></div>
+    <div class="track-item"><div class="track-num">16</div><div class="track-name">Geometry — Vectors, Cross Product</div><div class="track-cf">Computational geometry basics.</div></div>
+    <div class="track-item"><div class="track-num">17</div><div class="track-name">Probability & Expected Value</div><div class="track-cf">DP on probability states.</div></div>
+    <div class="track-item"><div class="track-num">18</div><div class="track-name">Matrix Exponentiation</div><div class="track-cf">Fast Fibonacci, recurrences.</div></div>
+  </div>
+
+  <div class="level-banner lb-ext">● EXPERT (CF 2000+)</div>
+  <div class="track">
+    <div class="track-item"><div class="track-num">19</div><div class="track-name">Chinese Remainder Theorem</div><div class="track-cf">System of congruences.</div></div>
+    <div class="track-item"><div class="track-num">20</div><div class="track-name">Fast Fourier Transform (FFT)</div><div class="track-cf">Polynomial/string problems.</div></div>
+    <div class="track-item"><div class="track-num">21</div><div class="track-name">Game Theory (Sprague-Grundy)</div><div class="track-cf">Nim, combinatorial games.</div></div>
+    <div class="track-item"><div class="track-num">22</div><div class="track-name">Burnside's Lemma / Pólya</div><div class="track-cf">Counting with symmetry.</div></div>
+  </div>
+
+  <div class="callout co-a">
+    <strong>🎯 UK Context:</strong> A-Level Maths gives you series (S1), proof, logs, and basic probability. A-Level Further Maths (if you did it) gives you matrices, complex numbers, and more series — all directly useful. This guide assumes A-Level Maths only and builds from there.
+  </div>
+</div>
+
+<!-- ══════════════════ NUMBER THEORY ══════════════════ -->
+<div class="section" id="number">
+  <h1>Number <em>Theory</em></h1>
+  <p class="sub">Divisibility, primes, GCD — the bedrock of ~30% of CF problems.</p>
+
+  <div class="level-banner lb-easy">● Starting Easy — GCD & Primes</div>
+
+  <h2>GCD — Greatest Common Divisor <span class="h2-tag" style="background:rgba(63,185,80,0.1);color:var(--green);">Easy</span></h2>
+  <p>You know this from A-Level. But you need the <strong>Euclidean Algorithm</strong> — it's O(log min(a,b)) and the most common maths function in competitive programming.</p>
+
+  <div class="math-block">
+    <span class="label">Euclidean Algorithm</span>
+    gcd(a, b) = gcd(b, a mod b)<br>
+    gcd(a, 0) = a
+    <div class="math-sub">Example: gcd(48, 18) → gcd(18, 12) → gcd(12, 6) → gcd(6, 0) = 6</div>
+  </div>
+
+  <div class="math-block">
+    <span class="label">LCM from GCD</span>
+    lcm(a, b) = (a × b) / gcd(a, b)
+    <div class="math-sub">⚠️ Compute as a / gcd(a,b) × b to avoid overflow before dividing!</div>
+  </div>
+
+  <div class="code-wrap">
+<pre><span class="cm"># Python — built in! But know the manual version</span>
+<span class="kw">from</span> math <span class="kw">import</span> gcd, lcm
+
+<span class="cm"># Manual Euclidean (know this for Go/C#)</span>
+<span class="kw">def</span> <span class="fn">gcd</span>(a, b):
+    <span class="kw">while</span> b:
+        a, b = b, a % b
+    <span class="kw">return</span> a
+
+<span class="cm">// Go</span>
+<span class="kw">func</span> <span class="fn">gcd</span>(a, b <span class="tp">int</span>) <span class="tp">int</span> {
+    <span class="kw">for</span> b != <span class="nm">0</span> { a, b = b, a%b }
+    <span class="kw">return</span> a
+}</pre>
+  </div>
+
+  <div class="tag-row">
+    <span class="tag tgg">GCD of Array</span>
+    <span class="tag tgg">LCM of Strings</span>
+    <span class="tag ta">Water Pouring Problems</span>
+    <span class="tag ta">Rearrange Array by GCD</span>
+  </div>
+
+  <h2>Prime Numbers & Sieve of Eratosthenes <span class="h2-tag" style="background:rgba(63,185,80,0.1);color:var(--green);">Easy</span></h2>
+
+  <p>Checking if one number is prime is O(√n). Finding <em>all</em> primes up to N uses the Sieve — O(N log log N). This is essential.</p>
+
+  <div class="diagram">
+    <div class="d-title">Sieve of Eratosthenes — cross out multiples of each prime</div>
+    <div class="row">
+      <div class="nd">2</div><div class="nd">3</div>
+      <div class="nd" style="opacity:0.3;text-decoration:line-through;">4</div>
+      <div class="nd">5</div>
+      <div class="nd" style="opacity:0.3;text-decoration:line-through;">6</div>
+      <div class="nd">7</div>
+      <div class="nd" style="opacity:0.3;text-decoration:line-through;">8</div>
+      <div class="nd" style="opacity:0.3;text-decoration:line-through;">9</div>
+      <div class="nd" style="opacity:0.3;text-decoration:line-through;">10</div>
+      <div class="nd">11</div>
+      <div class="nd" style="opacity:0.3;text-decoration:line-through;">12</div>
+      <div class="nd">13</div>
+    </div>
+    <div style="color:var(--muted);font-size:11px;margin-top:10px;">
+      Start at 2: mark 4,6,8,10,12... as composite.<br>
+      Move to 3: mark 9,12,15... (6 already done).<br>
+      Move to 5: mark 25,35... (only need to start at p²!)
+    </div>
+  </div>
+
+  <div class="code-wrap">
+<pre><span class="cm"># Sieve of Eratosthenes — finds all primes up to N</span>
+<span class="kw">def</span> <span class="fn">sieve</span>(n):
+    is_prime = [<span class="kw">True</span>] * (n + <span class="nm">1</span>)
+    is_prime[<span class="nm">0</span>] = is_prime[<span class="nm">1</span>] = <span class="kw">False</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">2</span>, <span class="nm">int</span>(n**<span class="nm">0.5</span>) + <span class="nm">1</span>):
+        <span class="kw">if</span> is_prime[i]:
+            <span class="kw">for</span> j <span class="kw">in</span> range(i*i, n+<span class="nm">1</span>, i):
+                is_prime[j] = <span class="kw">False</span>
+    <span class="kw">return</span> [i <span class="kw">for</span> i, p <span class="kw">in</span> enumerate(is_prime) <span class="kw">if</span> p]
+
+<span class="cm"># Single prime check — O(√n)</span>
+<span class="kw">def</span> <span class="fn">is_prime</span>(n):
+    <span class="kw">if</span> n < <span class="nm">2</span>: <span class="kw">return False</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">2</span>, <span class="nm">int</span>(n**<span class="nm">0.5</span>) + <span class="nm">1</span>):
+        <span class="kw">if</span> n % i == <span class="nm">0</span>: <span class="kw">return False</span>
+    <span class="kw">return True</span></pre>
+  </div>
+
+  <h2>Prime Factorisation <span class="h2-tag" style="background:rgba(57,197,207,0.1);color:var(--teal);">Easy–Medium</span></h2>
+
+  <div class="math-block">
+    <span class="label">Fundamental Theorem of Arithmetic</span>
+    Every integer n &gt; 1 has a unique prime factorisation.<br>
+    360 = 2³ × 3² × 5
+    <div class="math-sub">Number of divisors of n = (3+1)(2+1)(1+1) = 24. Formula: ∏(eₖ+1) for each prime power pₖ^eₖ</div>
+  </div>
+
+  <div class="callout co-t">
+    <strong>Divisor Count Trick:</strong> If the number of divisors is odd, n is a perfect square. This comes up often in "count arrays with property X" problems.
+  </div>
+
+  <h2>Key Number Theory Facts to Memorise</h2>
+  <table class="tbl">
+    <tr><th>Fact</th><th>Formula/Statement</th><th>Use in CP</th></tr>
+    <tr><td>Sum of first n integers</td><td style="font-family:'Playfair Display',serif;">n(n+1)/2</td><td>Constant-time prefix sums, triangular numbers</td></tr>
+    <tr><td>Sum of first n squares</td><td style="font-family:'Playfair Display',serif;">n(n+1)(2n+1)/6</td><td>Optimising DP transitions</td></tr>
+    <tr><td>Number of divisors up to √n</td><td>O(√n)</td><td>Bounding loops over factors</td></tr>
+    <tr><td>Primes up to N</td><td>≈ N / ln(N) (Prime Counting)</td><td>Estimating sieve output size</td></tr>
+    <tr><td>log₂(10⁹) ≈ 30</td><td>2³⁰ ≈ 10⁹</td><td>Binary search depth, bit lengths</td></tr>
+    <tr><td>Fibonacci grows exponentially</td><td>F(n) ≈ φⁿ/√5</td><td>Any Fib > 10¹⁸ has n ≤ 87</td></tr>
+  </table>
+</div>
+
+<!-- ══════════════════ COMBINATORICS ══════════════════ -->
+<div class="section" id="combinatorics">
+  <h1><em>Combinatorics</em></h1>
+  <p class="sub">Counting without listing — the art of "how many ways".</p>
+
+  <div class="level-banner lb-easy">● Refreshing A-Level — Permutations & Combinations</div>
+
+  <p>You covered nCr and nPr at A-Level (Statistics). The competitive version needs you to <strong>compute them fast under modulo</strong> and recognise which formula applies in disguised problems.</p>
+
+  <h2>The Core Formulas <span class="h2-tag" style="background:rgba(63,185,80,0.1);color:var(--green);">Easy</span></h2>
+
+  <div class="grid2">
+    <div class="math-block">
+      <span class="label">Permutations — order matters</span>
+      P(n, r) = n! / (n−r)!
+      <div class="math-sub">Arrange r items from n. e.g. 3-digit codes from 9 digits.</div>
+    </div>
+    <div class="math-block">
+      <span class="label">Combinations — order doesn't matter</span>
+      C(n, r) = n! / (r! × (n−r)!)
+      <div class="math-sub">Choose r items from n. e.g. lottery, subsets.</div>
+    </div>
+  </div>
+
+  <h2>Recognising Combinatorics in Disguise <span class="h2-tag" style="background:rgba(57,197,207,0.1);color:var(--teal);">Medium</span></h2>
+
+  <div class="grid2">
+    <div class="card card-teal">
+      <h3>Grid Paths</h3>
+      <p style="font-size:12px;">How many ways to go from (0,0) to (m,n) moving only right or down?</p>
+      <div class="math-block" style="font-size:1rem;margin:10px 0;">C(m+n, m) = C(m+n, n)</div>
+      <p style="font-size:11px;color:var(--muted);">You make m+n moves total, choose which m are "right".</p>
+    </div>
+    <div class="card card-amber">
+      <h3>Stars & Bars</h3>
+      <p style="font-size:12px;">Distribute n identical objects into k distinct bins (bins can be empty):</p>
+      <div class="math-block" style="font-size:1rem;margin:10px 0;">C(n+k−1, k−1)</div>
+      <p style="font-size:11px;color:var(--muted);">e.g. How many ways to roll 3 dice summing to 10?</p>
+    </div>
+    <div class="card card-green">
+      <h3>Derangements</h3>
+      <p style="font-size:12px;">Permutations where <strong>no</strong> element appears in its original position:</p>
+      <div class="math-block" style="font-size:0.95rem;margin:10px 0;">D(n) = n! × Σ(−1)ᵢ/i!  for i=0..n</div>
+      <p style="font-size:11px;color:var(--muted);">D(n) ≈ n!/e. D(1)=0, D(2)=1, D(3)=2, D(4)=9</p>
+    </div>
+    <div class="card card-violet">
+      <h3>Catalan Numbers</h3>
+      <p style="font-size:12px;">Count balanced parentheses, BSTs with n nodes, triangulations:</p>
+      <div class="math-block" style="font-size:0.95rem;margin:10px 0;">Cₙ = C(2n, n) / (n+1)</div>
+      <p style="font-size:11px;color:var(--muted);">C₀=1, C₁=1, C₂=2, C₃=5, C₄=14, C₅=42</p>
+    </div>
+  </div>
+
+  <h2>Inclusion-Exclusion Principle <span class="h2-tag" style="background:rgba(227,169,70,0.1);color:var(--amber);">Medium</span></h2>
+
+  <p>Count elements in at least one set by adding singles, subtracting pairwise intersections, adding triple intersections...</p>
+
+  <div class="math-block">
+    <span class="label">Inclusion-Exclusion for 3 sets</span>
+    |A ∪ B ∪ C| = |A| + |B| + |C|<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− |A∩B| − |A∩C| − |B∩C|<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ |A∩B∩C|
+    <div class="math-sub">Alternate signs: + for odd-size subsets, − for even-size subsets.</div>
+  </div>
+
+  <div class="callout co-a">
+    <strong>Classic Problem:</strong> How many integers from 1 to 100 are divisible by 2, 3, or 5?<br>
+    |A|=50, |B|=33, |C|=20 → −|AB|=16, −|AC|=10, −|BC|=6 → +|ABC|=3<br>
+    Answer = 50+33+20−16−10−6+3 = <strong>74</strong>
+  </div>
+
+  <h2>Pascal's Triangle & Binomial Theorem <span class="h2-tag" style="background:rgba(57,197,207,0.1);color:var(--teal);">Easy–Medium</span></h2>
+
+  <div class="diagram">
+    <div class="d-title">Pascal's Triangle — C(n,r) = C(n-1,r-1) + C(n-1,r)</div>
+    <div style="text-align:center;line-height:2.2;font-size:13px;color:var(--text);">
+      <div>1</div>
+      <div>1 &nbsp; 1</div>
+      <div>1 &nbsp; 2 &nbsp; 1</div>
+      <div>1 &nbsp; 3 &nbsp; 3 &nbsp; 1</div>
+      <div>1 &nbsp; 4 &nbsp; 6 &nbsp; 4 &nbsp; 1</div>
+      <div style="color:var(--amber);">1 &nbsp; 5 &nbsp; 10 &nbsp; 10 &nbsp; 5 &nbsp; 1</div>
+    </div>
+    <div style="color:var(--muted);font-size:11px;margin-top:12px;">
+      Row sum = 2ⁿ. Sum of alternating row signs = 0. Diagonal sums = Fibonacci!
+    </div>
+  </div>
+
+  <div class="math-block">
+    <span class="label">Binomial Theorem (you know this from A-Level C4/FP1)</span>
+    (a + b)ⁿ = Σ C(n,k) × aⁿ⁻ᵏ × bᵏ  for k=0 to n
+    <div class="math-sub">Coefficient of xᵏ in (1+x)ⁿ is C(n,k). Critical for generating functions.</div>
+  </div>
+
+  <h2>Precomputing Factorials (The Speed Trick) <span class="h2-tag" style="background:rgba(227,169,70,0.1);color:var(--amber);">Medium</span></h2>
+
+  <p>If you need C(n,r) for many queries, precompute factorials and their modular inverses. Then each query is O(1).</p>
+
+  <div class="code-wrap">
+<pre><span class="cm"># Precompute C(n,r) mod p for multiple queries</span>
+MOD = <span class="nm">10</span>**<span class="nm">9</span> + <span class="nm">7</span>
+N = <span class="nm">10</span>**<span class="nm">6</span>
+
+fact = [<span class="nm">1</span>] * (N + <span class="nm">1</span>)
+<span class="kw">for</span> i <span class="kw">in</span> range(<span class="nm">1</span>, N + <span class="nm">1</span>):
+    fact[i] = fact[i-<span class="nm">1</span>] * i % MOD
+
+inv_fact = [<span class="nm">1</span>] * (N + <span class="nm">1</span>)
+inv_fact[N] = <span class="fn">pow</span>(fact[N], MOD-<span class="nm">2</span>, MOD)  <span class="cm"># Fermat's little theorem</span>
+<span class="kw">for</span> i <span class="kw">in</span> range(N-<span class="nm">1</span>, -<span class="nm">1</span>, -<span class="nm">1</span>):
+    inv_fact[i] = inv_fact[i+<span class="nm">1</span>] * (i+<span class="nm">1</span>) % MOD
+
+<span class="kw">def</span> <span class="fn">comb</span>(n, r):
+    <span class="kw">if</span> r < <span class="nm">0</span> <span class="kw">or</span> r > n: <span class="kw">return</span> <span class="nm">0</span>
+    <span class="kw">return</span> fact[n] * inv_fact[r] % MOD * inv_fact[n-r] % MOD</pre>
+  </div>
+</div>
+
+<!-- ══════════════════ MODULAR ARITHMETIC ══════════════════ -->
+<div class="section" id="modular">
+  <h1>Modular <em>Arithmetic</em></h1>
+  <p class="sub">The clock arithmetic that makes huge numbers tractable — and the source of 80% of "why is my answer wrong" bugs.</p>
+
+  <div class="callout co-c">
+    <strong>⚠️ Why mod (10⁹+7)?</strong> Problems with huge answers ask for the result modulo a prime. 10⁹+7 is prime, fits in 32-bit int, and two values multiplied fit in 64-bit. It's the standard. Know it. Love it.
+  </div>
+
+  <h2>The Rules (Refresh from A-Level) <span class="h2-tag" style="background:rgba(63,185,80,0.1);color:var(--green);">Easy</span></h2>
+
+  <div class="grid2">
+    <div class="math-block">
+      <span class="label">Addition & Subtraction</span>
+      (a + b) mod m = ((a mod m) + (b mod m)) mod m
+      <div class="math-sub">Safe to take mod at each step. Never let numbers grow huge.</div>
+    </div>
+    <div class="math-block">
+      <span class="label">Multiplication</span>
+      (a × b) mod m = ((a mod m) × (b mod m)) mod m
+      <div class="math-sub">⚠️ Use 64-bit int or Python handles it automatically.</div>
+    </div>
+  </div>
+
+  <div class="math-block" style="border-color:var(--coral);">
+    <span class="label" style="color:var(--coral);">Division — NOT directly possible!</span>
+    (a / b) mod m ≠ (a mod m) / (b mod m)  ← WRONG!
+    <div class="math-sub">You need the modular inverse: (a / b) mod m = (a × b⁻¹) mod m</div>
+  </div>
+
+  <h2>Fast Exponentiation (Binary Exponentiation) <span class="h2-tag" style="background:rgba(57,197,207,0.1);color:var(--teal);">Easy–Medium</span></h2>
+
+  <p>Computing a<sup>n</sup> mod m naively is O(n). Too slow if n = 10<sup>18</sup>. Use repeated squaring for O(log n).</p>
+
+  <div class="diagram">
+    <div class="d-title">2¹³ via repeated squaring — 13 in binary is 1101</div>
+    <div style="font-size:12px;color:var(--text);line-height:2;">
+      2¹ = 2<br>
+      2² = 4<br>
+      2⁴ = 16<br>
+      2⁸ = 256<br>
+      <span style="color:var(--teal);">2¹³ = 2⁸ × 2⁴ × 2¹ = 256 × 16 × 2 = 8192</span><br>
+      <span style="color:var(--muted);">Only 4 multiplications instead of 13!</span>
+    </div>
+  </div>
+
+  <div class="code-wrap">
+<pre><span class="cm"># Python has built-in — USE IT</span>
+result = <span class="fn">pow</span>(base, exp, mod)  <span class="cm"># O(log exp) automatically</span>
+
+<span class="cm">// Go — implement manually</span>
+<span class="kw">func</span> <span class="fn">powMod</span>(base, exp, mod <span class="tp">int64</span>) <span class="tp">int64</span> {
+    result := <span class="tp">int64</span>(<span class="nm">1</span>)
+    base %= mod
+    <span class="kw">for</span> exp > <span class="nm">0</span> {
+        <span class="kw">if</span> exp%<span class="nm">2</span> == <span class="nm">1</span> { result = result * base % mod }
+        exp /= <span class="nm">2</span>
+        base = base * base % mod
+    }
+    <span class="kw">return</span> result
+}</pre>
+  </div>
+
+  <h2>Modular Inverse & Fermat's Little Theorem <span class="h2-tag" style="background:rgba(224,92,92,0.1);color:var(--coral);">Hard</span></h2>
+
+  <div class="math-block">
+    <span class="label">Fermat's Little Theorem — p must be prime!</span>
+    If p is prime and gcd(a, p) = 1, then:  aᵖ⁻¹ ≡ 1 (mod p)<br>
+    Therefore: a⁻¹ ≡ aᵖ⁻² (mod p)
+    <div class="math-sub">Modular inverse of a = pow(a, MOD-2, MOD). This is why MOD = 10⁹+7 must be prime.</div>
+  </div>
+
+  <div class="code-wrap">
+<pre><span class="cm"># Modular inverse — enables division under modulo</span>
+MOD = <span class="nm">10</span>**<span class="nm">9</span> + <span class="nm">7</span>
+
+<span class="kw">def</span> <span class="fn">mod_inv</span>(a):
+    <span class="kw">return</span> <span class="fn">pow</span>(a, MOD - <span class="nm">2</span>, MOD)
+
+<span class="cm"># Division under mod: a/b = a * mod_inv(b)</span>
+result = a * <span class="fn">mod_inv</span>(b) % MOD</pre>
+  </div>
+
+  <div class="callout co-t">
+    <strong>Real Example:</strong> C(1000, 500) mod (10⁹+7).<br>
+    = fact[1000] * inv_fact[500] * inv_fact[500] mod MOD.<br>
+    Each inv_fact[k] = pow(fact[k], MOD-2, MOD). Precompute once → O(1) per query.
+  </div>
+
+  <h2>Common Modular Mistakes to Avoid</h2>
+  <div class="grid2">
+    <div class="card card-coral">
+      <h3>❌ Forgetting negative mod</h3>
+      <p style="font-size:12px;">In Python <code>-1 % MOD = MOD-1</code> (correct!). In Go/C#, <code>-1 % MOD = -1</code> (wrong!). Fix: <code>((x % MOD) + MOD) % MOD</code></p>
+    </div>
+    <div class="card card-coral">
+      <h3>❌ Overflow before mod</h3>
+      <p style="font-size:12px;">In C# with int32: a*b overflows before %MOD. Use <code>long</code> / <code>int64</code> for intermediate products.</p>
+    </div>
+    <div class="card card-amber">
+      <h3>⚠️ Division under non-prime mod</h3>
+      <p style="font-size:12px;">Fermat's Little Theorem only works when mod is prime. For composite mod, use Extended Euclidean.</p>
+    </div>
+    <div class="card card-amber">
+      <h3>⚠️ Not taking mod at every step</h3>
+      <p style="font-size:12px;">In DP: <code>dp[i] = (dp[i-1] + dp[i-2]) % MOD</code> at each step, not just at the end.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ BIT TRICKS ══════════════════ -->
+<div class="section" id="bits">
+  <h1>Bit <em>Manipulation</em></h1>
+  <p class="sub">Not on the A-Level syllabus — but pure competitive programming gold.</p>
+
+  <p>Computers think in bits. Bit manipulation lets you perform operations that would otherwise need loops — in a single CPU instruction. Once you see it, you'll spot it everywhere.</p>
+
+  <h2>The Basics <span class="h2-tag" style="background:rgba(63,185,80,0.1);color:var(--green);">Easy</span></h2>
+
+  <div class="diagram">
+    <div class="d-title">Binary representation — decimal 13 = binary 1101</div>
+    <div class="row">
+      <div class="nd-a nd" style="width:60px;">bit 3</div>
+      <div class="nd-a nd" style="width:60px;">bit 2</div>
+      <div class="nd" style="width:60px;">bit 1</div>
+      <div class="nd-a nd" style="width:60px;">bit 0</div>
+    </div>
+    <div class="row">
+      <div class="nd" style="width:60px;background:rgba(227,169,70,0.2);">1</div>
+      <div class="nd" style="width:60px;background:rgba(227,169,70,0.2);">1</div>
+      <div class="nd" style="width:60px;opacity:0.4;">0</div>
+      <div class="nd" style="width:60px;background:rgba(227,169,70,0.2);">1</div>
+    </div>
+    <div class="row" style="font-size:11px;color:var(--muted);margin-top:4px;">
+      <div style="width:60px;text-align:center;">8</div>
+      <div style="width:60px;text-align:center;">4</div>
+      <div style="width:60px;text-align:center;">2</div>
+      <div style="width:60px;text-align:center;">1</div>
+      <div style="margin-left:8px;">= 8+4+1 = 13</div>
+    </div>
+  </div>
+
+  <table class="tbl">
+    <tr><th>Operation</th><th>Symbol</th><th>Example (5=101, 3=011)</th><th>What it does</th></tr>
+    <tr><td>AND</td><td style="font-family:'JetBrains Mono',monospace;">&amp;</td><td>5 &amp; 3 = 1 (001)</td><td>Both bits must be 1</td></tr>
+    <tr><td>OR</td><td style="font-family:'JetBrains Mono',monospace;">|</td><td>5 | 3 = 7 (111)</td><td>Either bit is 1</td></tr>
+    <tr><td>XOR</td><td style="font-family:'JetBrains Mono',monospace;">^</td><td>5 ^ 3 = 6 (110)</td><td>Bits differ → 1</td></tr>
+    <tr><td>NOT</td><td style="font-family:'JetBrains Mono',monospace;">~</td><td>~5 = -6</td><td>Flip all bits</td></tr>
+    <tr><td>Left shift</td><td style="font-family:'JetBrains Mono',monospace;">&lt;&lt;</td><td>5 &lt;&lt; 1 = 10</td><td>Multiply by 2</td></tr>
+    <tr><td>Right shift</td><td style="font-family:'JetBrains Mono',monospace;">&gt;&gt;</td><td>5 &gt;&gt; 1 = 2</td><td>Integer divide by 2</td></tr>
+  </table>
+
+  <h2>The Essential Bit Tricks <span class="h2-tag" style="background:rgba(57,197,207,0.1);color:var(--teal);">Medium</span></h2>
+
+  <div class="grid2">
+    <div class="card card-teal">
+      <h3>Check if bit k is set</h3>
+      <pre style="padding:12px;font-size:11px;">(n >> k) & 1  <span class="cm">→ 0 or 1</span></pre>
+    </div>
+    <div class="card card-teal">
+      <h3>Set bit k</h3>
+      <pre style="padding:12px;font-size:11px;">n | (1 << k)</pre>
+    </div>
+    <div class="card card-teal">
+      <h3>Clear bit k</h3>
+      <pre style="padding:12px;font-size:11px;">n & ~(1 << k)</pre>
+    </div>
+    <div class="card card-teal">
+      <h3>Toggle bit k</h3>
+      <pre style="padding:12px;font-size:11px;">n ^ (1 << k)</pre>
+    </div>
+    <div class="card card-amber">
+      <h3>Is n a power of 2?</h3>
+      <pre style="padding:12px;font-size:11px;">n > 0 and (n & (n-1)) == 0</pre>
+      <p style="font-size:11px;color:var(--muted);">Powers of 2 have exactly one set bit.</p>
+    </div>
+    <div class="card card-amber">
+      <h3>Remove lowest set bit</h3>
+      <pre style="padding:12px;font-size:11px;">n & (n - 1)
+<span class="cm"># Used to count set bits (popcount)</span></pre>
+    </div>
+    <div class="card card-green">
+      <h3>XOR identity: a ^ a = 0</h3>
+      <pre style="padding:12px;font-size:11px;"><span class="cm"># Find the one unique element</span>
+result = 0
+for x in arr: result ^= x</pre>
+    </div>
+    <div class="card card-green">
+      <h3>Count set bits (popcount)</h3>
+      <pre style="padding:12px;font-size:11px;"><span class="cm"># Python</span>
+bin(n).count('1')
+<span class="cm"># Go</span>
+bits.OnesCount(uint(n))</pre>
+    </div>
+  </div>
+
+  <h2>Bitmask DP — The Power Move <span class="h2-tag" style="background:rgba(224,92,92,0.1);color:var(--coral);">Hard</span></h2>
+
+  <p>Use an integer as a set. Bit k = 1 means element k is "in the set". Enables DP over all 2ⁿ subsets for small n (typically n ≤ 20).</p>
+
+  <div class="diagram">
+    <div class="d-title">Bitmask representing subsets of {0,1,2,3}</div>
+    <div class="row">
+      <div class="nd">0000 = {}</div>
+      <div class="nd-t nd">0001 = {0}</div>
+      <div class="nd-a nd">0010 = {1}</div>
+      <div class="nd-t nd">0011 = {0,1}</div>
+    </div>
+    <div class="row">
+      <div class="nd-v nd">0100 = {2}</div>
+      <div class="nd">0101 = {0,2}</div>
+      <div class="nd-g nd">1111 = {0,1,2,3}</div>
+    </div>
+    <div style="color:var(--muted);font-size:11px;margin-top:10px;">
+      Iterate all subsets: for mask in range(1 &lt;&lt; n)<br>
+      Add element i to mask: mask | (1 &lt;&lt; i)<br>
+      Remove element i: mask &amp; ~(1 &lt;&lt; i)<br>
+      Is i in mask? (mask >> i) &amp; 1
+    </div>
+  </div>
+
+  <div class="callout co-v">
+    <strong>Classic Bitmask DP:</strong> Travelling Salesman Problem (TSP). State = dp[mask][node] = min cost to visit nodes in mask, ending at node. n=20 → 2²⁰ × 20 ≈ 20 million states. Feasible!
+  </div>
+</div>
+
+<!-- ══════════════════ GEOMETRY ══════════════════ -->
+<div class="section" id="geometry">
+  <h1>Computational <em>Geometry</em></h1>
+  <p class="sub">Vector maths you did in A-Level C4/FP — now applied to polygon problems.</p>
+
+  <h2>Vectors & the Cross Product <span class="h2-tag" style="background:rgba(57,197,207,0.1);color:var(--teal);">Medium</span></h2>
+
+  <p>In A-Level you did dot products. Competitive geometry lives and dies by the <strong>cross product</strong> — specifically the 2D version which gives a signed area.</p>
+
+  <div class="math-block">
+    <span class="label">2D Cross Product of vectors OA and OB</span>
+    cross(OA, OB) = OA.x × OB.y − OA.y × OB.x
+    <div class="math-sub">
+      &gt; 0: B is to the LEFT of OA (counterclockwise)<br>
+      &lt; 0: B is to the RIGHT of OA (clockwise)<br>
+      = 0: A, O, B are collinear
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="d-title">Point orientation — left turn vs right turn vs collinear</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;text-align:center;font-size:11px;color:var(--text);">
+      <div>
+        <div style="height:60px;display:flex;align-items:center;justify-content:center;">
+          <svg width="80" height="60" viewBox="0 0 80 60">
+            <line x1="10" y1="50" x2="50" y2="30" stroke="#39c5cf" stroke-width="2" marker-end="url(#arr)"/>
+            <line x1="10" y1="50" x2="30" y2="10" stroke="#e3a946" stroke-width="2"/>
+            <circle cx="10" cy="50" r="3" fill="#636e7b"/>
+            <circle cx="50" cy="30" r="3" fill="#39c5cf"/>
+            <circle cx="30" cy="10" r="3" fill="#e3a946"/>
+            <text x="52" y="33" fill="#39c5cf" font-size="9">A</text>
+            <text x="25" y="9" fill="#e3a946" font-size="9">B</text>
+          </svg>
+        </div>
+        <div style="color:var(--green);">cross &gt; 0<br>Left Turn (CCW)</div>
+      </div>
+      <div>
+        <div style="height:60px;display:flex;align-items:center;justify-content:center;">
+          <svg width="80" height="60" viewBox="0 0 80 60">
+            <line x1="10" y1="30" x2="50" y2="30" stroke="#39c5cf" stroke-width="2"/>
+            <line x1="10" y1="30" x2="70" y2="30" stroke="#e3a946" stroke-width="2"/>
+            <circle cx="10" cy="30" r="3" fill="#636e7b"/>
+            <circle cx="50" cy="30" r="3" fill="#39c5cf"/>
+            <circle cx="70" cy="30" r="3" fill="#e3a946"/>
+          </svg>
+        </div>
+        <div style="color:var(--muted);">cross = 0<br>Collinear</div>
+      </div>
+      <div>
+        <div style="height:60px;display:flex;align-items:center;justify-content:center;">
+          <svg width="80" height="60" viewBox="0 0 80 60">
+            <line x1="10" y1="10" x2="50" y2="30" stroke="#39c5cf" stroke-width="2"/>
+            <line x1="10" y1="10" x2="30" y2="50" stroke="#e3a946" stroke-width="2"/>
+            <circle cx="10" cy="10" r="3" fill="#636e7b"/>
+            <circle cx="50" cy="30" r="3" fill="#39c5cf"/>
+            <circle cx="30" cy="50" r="3" fill="#e3a946"/>
+          </svg>
+        </div>
+        <div style="color:var(--coral);">cross &lt; 0<br>Right Turn (CW)</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Polygon Area (Shoelace Formula) <span class="h2-tag" style="background:rgba(57,197,207,0.1);color:var(--teal);">Medium</span></h2>
+
+  <div class="math-block">
+    <span class="label">Shoelace / Gauss's Area Formula</span>
+    Area = ½ |Σ (xᵢ × yᵢ₊₁ − xᵢ₊₁ × yᵢ)|
+    <div class="math-sub">Sum over all edges (wrapping last point to first). Works for any non-self-intersecting polygon.</div>
+  </div>
+
+  <div class="code-wrap">
+<pre><span class="cm"># Polygon area — O(n)</span>
+<span class="kw">def</span> <span class="fn">polygon_area</span>(points):
+    n = <span class="fn">len</span>(points)
+    area = <span class="nm">0</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(n):
+        j = (i + <span class="nm">1</span>) % n
+        area += points[i][<span class="nm">0</span>] * points[j][<span class="nm">1</span>]
+        area -= points[j][<span class="nm">0</span>] * points[i][<span class="nm">1</span>]
+    <span class="kw">return</span> <span class="fn">abs</span>(area) / <span class="nm">2</span></pre>
+  </div>
+
+  <h2>Key Geometry Algorithms to Know <span class="h2-tag" style="background:rgba(224,92,92,0.1);color:var(--coral);">Hard</span></h2>
+
+  <table class="tbl">
+    <tr><th>Algorithm</th><th>Use</th><th>Key idea</th></tr>
+    <tr><td>Point in polygon</td><td>Is point inside a polygon?</td><td>Ray casting — count crossings</td></tr>
+    <tr><td>Convex Hull (Graham Scan)</td><td>Smallest convex polygon around points</td><td>Sort by angle, stack with left-turn check</td></tr>
+    <tr><td>Line intersection</td><td>Do two segments cross?</td><td>Cross products for orientation tests</td></tr>
+    <tr><td>Closest pair of points</td><td>Min distance in point set</td><td>Divide & conquer, O(n log n)</td></tr>
+    <tr><td>Pick's Theorem</td><td>Integer area from grid polygon</td><td>A = I + B/2 − 1 (interior + boundary points)</td></tr>
+  </table>
+
+  <div class="callout co-a">
+    <strong>🇬🇧 A-Level Connection:</strong> You know vectors from C4 and coordinates from C1. The cross product isn't on A-Level but is just the determinant of a 2×2 matrix — if you did Further Maths FP1, you've done this.
+  </div>
+</div>
+
+<!-- ══════════════════ PROBABILITY ══════════════════ -->
+<div class="section" id="probability">
+  <h1>Probability & <em>Expected Value</em></h1>
+  <p class="sub">From A-Level S1/S2 to DP on probability states.</p>
+
+  <div class="callout co-g">
+    <strong>🇬🇧 A-Level Base:</strong> You covered probability from S1 — tree diagrams, Bayes, independence, binomial distribution. This tab builds on that for competitive maths.
+  </div>
+
+  <h2>Expected Value — The Core Tool <span class="h2-tag" style="background:rgba(63,185,80,0.1);color:var(--green);">Easy</span></h2>
+
+  <div class="math-block">
+    <span class="label">Definition — same as A-Level S1</span>
+    E[X] = Σ xᵢ × P(X = xᵢ)
+    <div class="math-sub">Linearity of expectation: E[X + Y] = E[X] + E[Y] — even if X and Y are NOT independent! This is the key theorem.</div>
+  </div>
+
+  <div class="callout co-t">
+    <strong>Linearity of Expectation in Action:</strong> Expected number of fixed points in a random permutation of n elements?<br>
+    Let Xᵢ = 1 if element i is in position i. E[Xᵢ] = 1/n.<br>
+    E[total] = E[X₁ + X₂ + ... + Xₙ] = n × (1/n) = <strong>1</strong>. Always 1, regardless of n!
+  </div>
+
+  <h2>Geometric Distribution & Waiting Times <span class="h2-tag" style="background:rgba(57,197,207,0.1);color:var(--teal);">Medium</span></h2>
+
+  <div class="math-block">
+    <span class="label">Expected trials until first success (probability p per trial)</span>
+    E[trials] = 1/p
+    <div class="math-sub">Coupon Collector: to collect all n coupons (uniform random), expected draws = n × Hₙ = n(1 + 1/2 + 1/3 + ... + 1/n) ≈ n ln n</div>
+  </div>
+
+  <h2>Probability DP <span class="h2-tag" style="background:rgba(224,92,92,0.1);color:var(--coral);">Hard</span></h2>
+
+  <p>Many problems ask for expected value of a process. Define dp[state] = expected value from that state. Transition using probability-weighted sums.</p>
+
+  <div class="diagram">
+    <div class="d-title">Classic: Expected steps to reach state N from 0 (dice roll)</div>
+    <div style="font-size:12px;color:var(--text);line-height:2;">
+      E[0] = 0 (already there)<br>
+      E[i] = 1 + (1/6) × Σ E[i + d] for d = 1..6  (if i+d ≤ N)<br>
+      <span style="color:var(--muted);">Solve from E[N] backwards to E[0].</span>
+    </div>
+  </div>
+
+  <div class="code-wrap">
+<pre><span class="cm"># Expected steps on a 1D random walk</span>
+<span class="kw">def</span> <span class="fn">expected_steps</span>(n):
+    <span class="cm"># dp[i] = expected steps from position i to reach n</span>
+    dp = [<span class="nm">0.0</span>] * (n + <span class="nm">1</span>)
+    <span class="kw">for</span> i <span class="kw">in</span> range(n - <span class="nm">1</span>, -<span class="nm">1</span>, -<span class="nm">1</span>):
+        transitions = [j <span class="kw">for</span> j <span class="kw">in</span> range(i+<span class="nm">1</span>, <span class="fn">min</span>(i+<span class="nm">7</span>, n+<span class="nm">1</span>))]
+        dp[i] = <span class="nm">1</span> + <span class="fn">sum</span>(dp[j] <span class="kw">for</span> j <span class="kw">in</span> transitions) / <span class="fn">len</span>(transitions)
+    <span class="kw">return</span> dp[<span class="nm">0</span>]</pre>
+  </div>
+
+  <h2>Key Probability Identities for CP</h2>
+  <table class="tbl">
+    <tr><th>Identity</th><th>Formula</th><th>When to use</th></tr>
+    <tr><td>P(A ∪ B)</td><td style="font-family:'Playfair Display',serif;">P(A) + P(B) − P(A∩B)</td><td>Inclusion-exclusion for events</td></tr>
+    <tr><td>P(A|B)</td><td style="font-family:'Playfair Display',serif;">P(A∩B) / P(B)</td><td>Conditional probability, Bayes</td></tr>
+    <tr><td>Binomial P(X=k)</td><td style="font-family:'Playfair Display',serif;">C(n,k) × pᵏ × (1−p)ⁿ⁻ᵏ</td><td>k successes in n trials</td></tr>
+    <tr><td>E[X] for geometric</td><td style="font-family:'Playfair Display',serif;">1/p</td><td>Expected tries until success</td></tr>
+    <tr><td>Var[X+Y]</td><td style="font-family:'Playfair Display',serif;">Var[X] + Var[Y] (if independent)</td><td>Combined variance</td></tr>
+  </table>
+</div>
+
+<!-- ══════════════════ ADVANCED ══════════════════ -->
+<div class="section" id="advanced">
+  <h1>Advanced <em>Techniques</em></h1>
+  <p class="sub">CF 1800+ territory — topics you won't have seen at A-Level.</p>
+
+  <div class="level-banner lb-hard">● Hard (CF 1600–2000)</div>
+
+  <h2>Matrix Exponentiation <span class="h2-tag" style="background:rgba(224,92,92,0.1);color:var(--coral);">Hard</span></h2>
+
+  <p>If a recurrence can be written as a matrix multiplication, fast exponentiation computes the n-th term in O(k³ log n) where k = matrix size.</p>
+
+  <div class="math-block">
+    <span class="label">Fibonacci via Matrix — O(log n)</span>
+    [F(n+1)]   [1 1]ⁿ   [F(1)]<br>
+    [F(n)  ] = [1 0]  × [F(0)]
+    <div class="math-sub">Any linear recurrence with constant coefficients can be expressed this way. Very powerful for DP optimisation.</div>
+  </div>
+
+  <h2>Extended Euclidean Algorithm <span class="h2-tag" style="background:rgba(224,92,92,0.1);color:var(--coral);">Hard</span></h2>
+
+  <div class="math-block">
+    <span class="label">Bézout's Identity</span>
+    For any integers a, b: there exist x, y such that<br>
+    ax + by = gcd(a, b)
+    <div class="math-sub">Extended GCD finds x, y. Used for: modular inverse (when mod not prime), linear Diophantine equations.</div>
+  </div>
+
+  <div class="code-wrap">
+<pre><span class="cm"># Extended GCD — returns (gcd, x, y) where a*x + b*y = gcd</span>
+<span class="kw">def</span> <span class="fn">extgcd</span>(a, b):
+    <span class="kw">if</span> b == <span class="nm">0</span>: <span class="kw">return</span> a, <span class="nm">1</span>, <span class="nm">0</span>
+    g, x, y = <span class="fn">extgcd</span>(b, a % b)
+    <span class="kw">return</span> g, y, x - (a // b) * y
+
+<span class="cm"># Modular inverse using extgcd (works for non-prime mod too)</span>
+<span class="kw">def</span> <span class="fn">mod_inv</span>(a, m):
+    g, x, _ = <span class="fn">extgcd</span>(a, m)
+    <span class="kw">if</span> g != <span class="nm">1</span>: <span class="kw">return</span> -<span class="nm">1</span>  <span class="cm"># no inverse if gcd != 1</span>
+    <span class="kw">return</span> x % m</pre>
+  </div>
+
+  <div class="level-banner lb-ext">● Expert (CF 2000+)</div>
+
+  <h2>Game Theory — Sprague-Grundy Theorem <span class="h2-tag" style="background:rgba(167,139,250,0.1);color:var(--violet);">Expert</span></h2>
+
+  <p>For combinatorial games (two players, perfect information, no randomness, last move wins). Every position has a <strong>Grundy number (nimber)</strong>. A position is losing (for the player to move) iff its Grundy number is 0.</p>
+
+  <div class="math-block">
+    <span class="label">Grundy Number (mex = minimum excludant)</span>
+    G(position) = mex({ G(reachable positions) })<br>
+    mex({0,1,3}) = 2  (smallest non-negative integer not in set)
+    <div class="math-sub">Combined game XOR rule: XOR all Grundy numbers. If XOR = 0 → current player LOSES (second player wins).</div>
+  </div>
+
+  <div class="diagram">
+    <div class="d-title">Nim Game — one pile of n stones, remove 1-3 per turn</div>
+    <div class="row">
+      <div class="nd-g nd">G(0)=0</div><div class="arr">→</div>
+      <div class="nd-t nd">G(1)=1</div><div class="arr">→</div>
+      <div class="nd-a nd">G(2)=2</div><div class="arr">→</div>
+      <div class="nd-v nd">G(3)=3</div><div class="arr">→</div>
+      <div class="nd-g nd">G(4)=0</div><div class="arr">→</div>
+      <div class="nd-t nd">G(5)=1</div>
+    </div>
+    <div style="color:var(--muted);font-size:11px;margin-top:8px;">
+      G(n) = n mod 4. Positions with G=0 are P-positions (previous player wins = current player loses).
+    </div>
+  </div>
+
+  <h2>Chinese Remainder Theorem <span class="h2-tag" style="background:rgba(167,139,250,0.1);color:var(--violet);">Expert</span></h2>
+
+  <div class="math-block">
+    <span class="label">CRT — System of Congruences</span>
+    x ≡ a₁ (mod m₁)<br>
+    x ≡ a₂ (mod m₂)  →  unique x mod (m₁ × m₂) if gcd(m₁,m₂)=1<br>
+    x ≡ a₃ (mod m₃)
+    <div class="math-sub">Find x using: x = a₁M₁y₁ + a₂M₂y₂ + ... where Mᵢ = M/mᵢ and yᵢ = Mᵢ⁻¹ mod mᵢ</div>
+  </div>
+
+  <h2>Fast Fourier Transform (FFT) <span class="h2-tag" style="background:rgba(167,139,250,0.1);color:var(--violet);">Expert</span></h2>
+
+  <p>Multiplies two polynomials of degree n in O(n log n) instead of O(n²). This is how you convolve arrays — like counting pairs with sum k across two arrays.</p>
+
+  <div class="callout co-v">
+    <strong>When to suspect FFT:</strong> "Count pairs (i,j) such that a[i] + b[j] = k." Convert arrays to polynomials, multiply, coefficient of xᵏ in the product = answer.
+  </div>
+
+  <hr class="div">
+  <h2>Your Complete Cheat Sheet</h2>
+
+  <table class="tbl">
+    <tr><th>Topic</th><th>CF Level</th><th>Key Formula/Trick</th></tr>
+    <tr><td>GCD / LCM</td><td style="color:var(--green);">800+</td><td>Euclidean: gcd(a,b)=gcd(b,a%b)</td></tr>
+    <tr><td>Prime Sieve</td><td style="color:var(--green);">900+</td><td>O(N log log N) for all primes ≤ N</td></tr>
+    <tr><td>Binary Exponentiation</td><td style="color:var(--teal);">1100+</td><td>aⁿ in O(log n) via repeated squaring</td></tr>
+    <tr><td>Modular Arithmetic</td><td style="color:var(--teal);">1200+</td><td>Take mod at every step. Neg fix: (x%m+m)%m</td></tr>
+    <tr><td>nCr under mod</td><td style="color:var(--amber);">1300+</td><td>Precompute fact[], inv_fact[]. Each query O(1).</td></tr>
+    <tr><td>Inclusion-Exclusion</td><td style="color:var(--amber);">1400+</td><td>Alternate +/- for overlapping sets</td></tr>
+    <tr><td>Bitmask DP</td><td style="color:var(--amber);">1500+</td><td>dp[mask] over 2ⁿ subsets, n ≤ 20</td></tr>
+    <tr><td>Modular Inverse</td><td style="color:var(--coral);">1600+</td><td>pow(a, MOD-2, MOD) via Fermat</td></tr>
+    <tr><td>Extended GCD</td><td style="color:var(--coral);">1700+</td><td>ax + by = gcd(a,b), finds x,y</td></tr>
+    <tr><td>Matrix Exponentiation</td><td style="color:var(--coral);">1800+</td><td>Linear recurrences in O(k³ log n)</td></tr>
+    <tr><td>Sprague-Grundy</td><td style="color:var(--violet);">2000+</td><td>Grundy numbers + XOR for game positions</td></tr>
+    <tr><td>CRT</td><td style="color:var(--violet);">2000+</td><td>Combine congruences to unique solution</td></tr>
+    <tr><td>FFT/NTT</td><td style="color:var(--violet);">2200+</td><td>Polynomial multiplication in O(n log n)</td></tr>
+  </table>
+
+  <div class="callout co-t">
+    <strong>🏆 Final Advice for a UK Programmer:</strong> Start by doing CF Div. 3 contests (A, B, C problems). These are 800–1400 rated and test A-Level maths + basic CP. Once you're solving Div. 3 C problems consistently, move to Div. 2. The maths jump from 1400 to 1800 is where this guide's harder sections become essential. Bookmark it and return chapter by chapter.
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+const sections = ['roadmap','number','combinatorics','modular','bits','geometry','probability','advanced'];
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav a').forEach((a,i) => {
+    a.classList.remove('active');
+    if (sections[i] === id) a.classList.add('active');
+  });
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('nav a').forEach((a,i) => {
+  a.onclick = e => { e.preventDefault(); show(sections[i]); };
+});
+</script>
+</body>
+</html>
